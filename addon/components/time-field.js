@@ -149,6 +149,15 @@ export default Component.extend({
     }
   },
 
+  mouseWheel(evt) {
+    let action = "up";
+    if (evt.originalEvent.deltaY > 0) {
+      action = "down";
+    }
+    Ember.run.debounce(this.get("stateManager"), this.get("stateManager").send, action, 5);
+    evt.preventDefault();
+  },
+
   // [--]:-- --
   selectHours() {
     this.get("element").setSelectionRange(RANGES.HOUR.START, RANGES.HOUR.END);
@@ -282,6 +291,11 @@ export default Component.extend({
   didRender() {
     this.updateDOMValue();
     this.get("stateManager").send("refocus");
+    this.$().on("wheel", this.mouseWheel.bind(this));
+  },
+
+  willDestroyElement() {
+    this.$().off("wheel", this.mouseWheel);
   },
 
   // TODO - could use attribute binding but we want to re-focus
