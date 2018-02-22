@@ -49,7 +49,7 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
-    "ember-states": "1.13.0-beta"
+    "ember-states": "emberjs/ember-states#master"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
