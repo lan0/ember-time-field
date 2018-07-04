@@ -27,6 +27,8 @@ export default Component.extend({
   hours:   null, // always 24 hour, so doesn't reflect period
   minutes: null,
 
+  minuteSteps: 1, // steps for minutes
+
   period:  'am',
 
   init() {
@@ -190,7 +192,8 @@ export default Component.extend({
     this.valueChanged();
   },
 
-  incrementMinutes(amnt=1) {
+  incrementMinutes(amnt) {
+    amnt = amnt || this.get("minuteSteps");
     const minutes = this.get("minutes");
     if (isNone(minutes)) {
       this.set("minutes", 0);
@@ -202,7 +205,7 @@ export default Component.extend({
   },
 
   decrementMinutes() {
-    this.incrementMinutes(-1);
+    this.incrementMinutes(-this.get("minuteSteps"));
   },
 
   setMinutes(minutes) {
