@@ -2,7 +2,7 @@ import State from "../utils/state";
 
 export default State.extend({
   focusIn(manager) {
-    manager.transitionTo("focused.hours");
+    manager.transitionTo("focused.hours.digit1");
   },
 
   // it's possible to receive events after losing focus, due to runloop shenanigans

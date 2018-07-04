@@ -136,9 +136,9 @@ export default Component.extend({
     const cursor = el.selectionStart;
 
     if (cursor >= RANGES.HOUR.START && cursor <= RANGES.HOUR.END) {
-      this.get("stateManager").transitionTo("focused.hours");
+      this.get("stateManager").transitionTo("focused.hours.digit1");
     } else if (cursor >= RANGES.MINUTE.START && cursor <= RANGES.MINUTE.END) {
-      this.get("stateManager").transitionTo("focused.minutes");
+      this.get("stateManager").transitionTo("focused.minutes.digit1");
     } else if (cursor >= RANGES.PERIOD.START && cursor <= RANGES.PERIOD.END) {
       this.get("stateManager").transitionTo("focused.period");
     }

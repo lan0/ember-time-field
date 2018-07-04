@@ -20,7 +20,7 @@ export default State.extend({
       if (num <= 2) {
         manager.transitionTo("digit2");
       } else {
-        manager.transitionTo("minutes");
+        manager.transitionTo("minutes.digit1");
       }
     }
   }),
@@ -33,7 +33,7 @@ export default State.extend({
 
       const num = keyCodeToNumber(code);
       manager.get("input").setHoursDigit2(num);
-      manager.transitionTo("minutes");
+      manager.transitionTo("minutes.digit1");
     }
   }),
 
@@ -46,7 +46,7 @@ export default State.extend({
   },
 
   right(manager) {
-    manager.transitionTo("minutes");
+    manager.transitionTo("minutes.digit1");
   },
 
   up(manager) {

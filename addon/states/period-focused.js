@@ -10,7 +10,7 @@ export default State.extend({
   },
 
   left(manager) {
-    manager.transitionTo("minutes");
+    manager.transitionTo("minutes.digit1");
   },
 
   up(manager) {

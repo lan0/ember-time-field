@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, triggerKeyEvent, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | time-field', function(hooks) {
@@ -32,4 +32,17 @@ module('Integration | Component | time-field', function(hooks) {
     });
   });
 
+  test('it accepts input', async function(assert) {
+    this.set('change', () => {});
+    await render(hbs`{{time-field on-change=(action change)}}`);
+
+    const input = this.element.querySelector('input');
+    await click(input);
+    await triggerKeyEvent(input, 'keydown', 37);
+    await triggerKeyEvent(input, 'keydown', 52);
+    await triggerKeyEvent(input, 'keydown', 50);
+    await triggerKeyEvent(input, 'keydown', 48);
+
+    assert.equal(input.value, '04:20');
+  });
 });

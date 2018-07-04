@@ -51,7 +51,7 @@ export default State.extend({
   },
 
   left(manager) {
-    manager.transitionTo("hours");
+    manager.transitionTo("hours.digit1");
   },
 
   right(manager) {
