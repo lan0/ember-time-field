@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed, get } from '@ember/object';
 import { isNone } from '@ember/utils';
+import { throttle } from '@ember/runloop';
 
 import pad from '../utils/pad';
 import mod from '../utils/mod';
@@ -146,6 +147,15 @@ export default Component.extend({
     }
   },
 
+  wheel(event) {
+    let action = "up";
+    if (event.deltaY > 0) {
+      action = "down";
+    }
+    throttle(this.get('stateManager'), this.get('stateManager').send, action, 50);
+    event.preventDefault();
+  },
+
   // [--]:-- --
   selectHours() {
     this.get("element").setSelectionRange(RANGES.HOUR.START, RANGES.HOUR.END);
@@ -278,6 +288,11 @@ export default Component.extend({
   didRender() {
     this.updateDOMValue();
     this.get("stateManager").send("refocus");
+    window.addEventListener('wheel', this.wheel.bind(this), { passive: false });
+  },
+
+  willDestroyElement() {
+    window.removeEventListener('wheel', this.wheel);
   },
 
   // TODO - could use attribute binding but we want to re-focus
