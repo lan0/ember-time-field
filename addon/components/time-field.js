@@ -126,6 +126,12 @@ export default Component.extend({
 
   focusOut() {
     this.get("stateManager").send("focusOut");
+
+    let { hours, minutes } = this.getProperties("hours", "minutes");
+
+    this.get("on-change")({
+      hours, minutes
+    });
   },
 
   mouseDown() {
@@ -300,12 +306,6 @@ export default Component.extend({
   valueChanged() {
     this.updateDOMValue();
     this.get("stateManager").send("focusIn");
-
-    let { hours, minutes } = this.getProperties("hours", "minutes");
-
-    this.get("on-change")({
-      hours, minutes
-    });
   },
 
   updateDOMValue() {
