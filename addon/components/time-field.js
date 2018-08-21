@@ -158,8 +158,10 @@ export default Component.extend({
     if (event.deltaY > 0) {
       action = "down";
     }
-    throttle(this.get('stateManager'), this.get('stateManager').send, action, 50);
-    event.preventDefault();
+    if (this.get('stateManager.currentPath').indexOf('unfocused') === -1) {
+      event.preventDefault();
+      throttle(this.get('stateManager'), this.get('stateManager').send, action, 50);
+    }
   },
 
   // [--]:-- --

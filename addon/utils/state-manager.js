@@ -13,7 +13,12 @@ export default EmberObject.extend({
     }
   }),
 
+  currentPath: computed('_currentPath', 'initialState', function() {
+    return this.get('_currentPath') || this.get('initialState');
+  }),
+
   transitionTo(path) {
+    this.set('_currentPath', path);
     let current = this.get('currentState');
     while (current) {
       let nextState = current.get(path);
