@@ -158,7 +158,7 @@ export default Component.extend({
     if (event.deltaY > 0) {
       action = "down";
     }
-    if (this.get('stateManager.currentPath').indexOf('unfocused') === -1) {
+    if (this.get('stateManager.currentPath') && this.get('stateManager.currentPath').indexOf('unfocused') === -1) {
       event.preventDefault();
       throttle(this.get('stateManager'), this.get('stateManager').send, action, 50);
     }
@@ -296,11 +296,13 @@ export default Component.extend({
   didRender() {
     this.updateDOMValue();
     this.get("stateManager").send("refocus");
-    window.addEventListener('wheel', this.wheel.bind(this), { passive: false });
+    const listener = this.wheel.bind(this);
+    this.set('_wheelListener', listener);
+    window.addEventListener('wheel', listener, { passive: false });
   },
 
-  willDestroyElement() {
-    window.removeEventListener('wheel', this.wheel);
+  willDestroy() {
+    window.removeEventListener('wheel', this.get('_wheelListener'));
   },
 
   // TODO - could use attribute binding but we want to re-focus
